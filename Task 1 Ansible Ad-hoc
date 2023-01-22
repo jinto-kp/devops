@@ -1,0 +1,40 @@
+jinto@jinto-virtual-machine:~/.ansible$ ansible web -b -m ansible.builtin.user -a 'name=Tim uid=5005 comment=Dummy_user shell=/usr/sbin/nologin password_expire_max=10 password=$5$.9Uk2L7vfMn46uQu$7BhbiokiduSeIX6vNWR7wjeB0/oR/AwztolxUsWOQiB'
+web | CHANGED => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": true,
+    "comment": "Dummy_user",
+    "create_home": true,
+    "group": 5005,
+    "home": "/home/Tim",
+    "name": "Tim",
+    "password": "NOT_LOGGING_PASSWORD",
+    "shell": "/usr/sbin/nologin",
+    "state": "present",
+    "system": false,
+    "uid": 5005
+}
+jinto@jinto-virtual-machine:~/.ansible$ ssh web
+Welcome to Ubuntu 22.04.1 LTS (GNU/Linux 5.15.0-1028-aws x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sun Jan 22 14:50:35 UTC 2023
+
+  System load:  0.0               Processes:             100
+  Usage of /:   19.9% of 7.57GB   Users logged in:       1
+  Memory usage: 20%               IPv4 address for eth0: 172.31.90.15
+  Swap usage:   0%
+
+
+0 updates can be applied immediately.
+
+
+The list of available updates is more than a week old.
+To check for new updates run: sudo apt update
+
+Last login: Sun Jan 22 14:49:22 2023 from 117.196.60.102
+ubuntu@ip-172-31-90-15:~$ grep Dummy_user /etc/passwd
