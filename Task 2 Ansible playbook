@@ -1,0 +1,45 @@
+---
+- hosts: web
+  become: true
+
+  tasks:
+    - name: Installing nginx
+      apt:
+        name: nginx
+        state: latest
+        update_cache: yes
+
+
+    - name: Copying Index file
+      copy:
+        src: /home/jinto/Downloads/beginner-html-site-styled-gh-pages/
+        dest: /var/www/html/
+
+    - name: Restart nginx
+      service:
+       name: nginx
+       state: restarted
+
+
+
+jinto@jinto-virtual-machine:~/.ansible$ vim playbooks.yaml
+jinto@jinto-virtual-machine:~/.ansible$ ansible-playbook playbooks.yaml
+
+PLAY [web] **************************************************************************************************************************************************************************
+
+TASK [Gathering Facts] **************************************************************************************************************************************************************
+ok: [web]
+
+TASK [Installing nginx] *************************************************************************************************************************************************************
+ok: [web]
+
+TASK [Copying Index file] ***********************************************************************************************************************************************************
+changed: [web]
+
+TASK [Restart nginx] ****************************************************************************************************************************************************************
+changed: [web]
+
+PLAY RECAP **************************************************************************************************************************************************************************
+web                        : ok=4    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+jinto@jinto-virtual-machine:~/.ansible$ vim playbooks.yaml
