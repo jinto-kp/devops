@@ -1,0 +1,58 @@
+{
+  "Name": "Thomas",
+  "Age": 34,
+  "Occupation": "Software Developer",
+  "Address": "114 SouthBuchanan\nBoulevard\nDukeBox90790\nDurhamNC 27708\nPhone: (919)\n681-8472\nFax: (919) 681-8492",
+  "Hobbies": [
+    "Writing",
+    "Reading",
+    "Cycling"
+  ],
+  "Skills": {
+    "Programming": [
+      "Java",
+      "Python"
+    ],
+    "Databases": [
+      "Java",
+      "Python"
+    ],
+    "DevOps Tools": [
+      {
+        "Configuration Management": [
+          "Ansile",
+          "Puppet"
+        ]
+      },
+      {
+        "Git": null
+      },
+      {
+        "Virtualization": [
+          {
+            "Docker": [
+              {
+                "K8S": [
+                  "50% covered"
+                ]
+              },
+              {
+                "Swarm": [
+                  "90% covered"
+                ]
+              },
+              {
+                "CoreOS": null
+              }
+            ]
+          },
+          {
+            "LXC": null
+          }
+        ]
+      }
+    ]
+  },
+  "IQ": 122.55,
+  "Hike eligible":true
+}
