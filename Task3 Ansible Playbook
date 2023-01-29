@@ -1,0 +1,78 @@
+---
+
+- hosts: web
+  become: true
+  gather_facts: false
+
+  vars:
+    username: Testuser
+  tasks:
+    - name: Create 5 users
+      user:
+        name: "{{username}}{{item}}"
+      loop:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+
+    - name: Create file
+      file:
+        path: /README.md
+        state: touch
+
+    - name: Copy files
+      copy:
+        dest: "/home/{{item}}/README.md"
+        content: Hello "{{item}}" welcome to Ansible
+      with_items:
+        - Testuser1
+        - Testuser2
+        - Testuser3
+        - Testuser4
+        - Testuser5
+        
+        jinto@jinto-virtual-machine:~/.ansible$ ansible-playbook task3.yaml
+
+PLAY [web] **************************************************************************************************************************************************************************
+
+TASK [Create 5 users] ***************************************************************************************************************************************************************
+ok: [web] => (item=1)
+ok: [web] => (item=2)
+ok: [web] => (item=3)
+ok: [web] => (item=4)
+ok: [web] => (item=5)
+
+TASK [Create file] ******************************************************************************************************************************************************************
+changed: [web]
+
+TASK [Copy files] *******************************************************************************************************************************************************************
+changed: [web] => (item=Testuser1)
+changed: [web] => (item=Testuser2)
+changed: [web] => (item=Testuser3)
+changed: [web] => (item=Testuser4)
+changed: [web] => (item=Testuser5)
+
+PLAY RECAP **************************************************************************************************************************************************************************
+web                        : ok=3    changed=2    unreachable=0    failed=0    skipped=0    rescued=0    ignored=0   
+
+        
+   Output
+   
+   buntu@ip-172-31-45-158:/home$ cat /etc/passwd |grep Testuser
+Testuser1:x:1001:1001::/home/Testuser1:/bin/sh
+Testuser2:x:1002:1002::/home/Testuser2:/bin/sh
+Testuser3:x:1003:1003::/home/Testuser3:/bin/sh
+Testuser4:x:1004:1004::/home/Testuser4:/bin/sh
+Testuser5:x:1005:1005::/home/Testuser5:/bin/sh
+ubuntu@ip-172-31-45-158:/home$ sudo cat Testuser1/README.md
+Hello "Testuser1" welcome to Ansibleubuntu@ip-172-31-45-158:/home$ sudo cat Testuser2/README.md
+Hello "Testuser2" welcome to Ansibleubuntu@ip-172-31-45-158:/home$ sudo cat Testuser3/README.md
+Hello "Testuser3" welcome to Ansibleubuntu@ip-172-31-45-158:/home$ sudo cat Testuser4/README.md
+Hello "Testuser4" welcome to Ansibleubuntu@ip-172-31-45-158:/home$ sudo cat Testuser5/README.md
+Hello "Testuser5" welcome to Ansibleubuntu@ip-172-31-45-158:/home$ 
+
+      
+
+
