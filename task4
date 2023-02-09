@@ -1,0 +1,45 @@
+jinto@jinto-virtual-machine:~/.ansible$ 
+
+
+---
+- name:
+  hosts: web
+  become: true
+
+  vars_files:
+    - "{{ ansible_facts['distribution'] }}.yaml"
+    - phpbinary.yaml
+
+  tasks:
+
+    - name: Installing LAMP
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+        update_cache: true
+      with_items:
+        - apache2
+        - mysql-server
+
+    - name: Copying virtual host configuration
+      ansible.builtin.copy:
+        src: v_hosts.conf
+        dest: "{{ http_config }}"
+        mode: 0644
+      notify: Restarted Apache2
+
+    - name : tempalte
+      template:
+        src: home.php.j2
+        dest: /var/www/html/index.html
+
+    - name: install ansible mysql python3
+      apt:
+        name: python3-mysqldb
+        state: latest
+    - name: Create a DB user
+      mysql_user:
+        name: Tom
+        password: tom123
+        priv: "*.*:USAGE"
+                                                   
